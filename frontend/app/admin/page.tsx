@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { MOCK_ADMIN_PHARMACIES } from "@/lib/mock-data";
 
@@ -16,6 +17,14 @@ export default function AdminPage() {
   const [editTarget, setEditTarget] = useState<Pharmacy | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", city: "", phone: "" });
+  const router = useRouter();
+
+  const handleLogout = () => {
+    try {
+      ["token", "role", "userId", "firstName", "lastName", "identifier"].forEach(k => localStorage.removeItem(k));
+    } catch (e) {}
+    router.push("/auth/login");
+  };
 
   const active = pharmacies.filter((p) => p.active).length;
   const inactive = pharmacies.length - active;
@@ -45,6 +54,11 @@ export default function AdminPage() {
           <div>
             <p className="text-[#64748B] text-xs font-semibold uppercase tracking-wider">Super Administrateur</p>
             <h1 className="text-white text-2xl font-black mt-0.5">Administration</h1>
+          </div>
+          <div className="ml-auto">
+            <button onClick={handleLogout} className="py-2 px-3 rounded-2xl text-sm font-black text-[#EF4444] bg-white/5 hover:bg-white/10 transition">
+              Se déconnecter
+            </button>
           </div>
         </div>
 
