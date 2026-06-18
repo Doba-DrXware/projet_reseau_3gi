@@ -1,0 +1,86 @@
+# ==========================================
+# FRONTEND (Next.js & Node)
+# ==========================================
+
+# Dépendances
+frontend/node_modules/
+frontend/.pnpm-store/
+
+# Builds et production
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/dist/
+
+# Environnement (Contient les clés secrètes frontend)
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Logs frontend
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+
+# Vercel et déploiement
+frontend/.vercel/
+
+
+# ==========================================
+# BACKEND (Spring Boot & Java)
+# ==========================================
+
+# Compilations, builds et artefacts
+backend/target/
+backend/build/
+backend/.gradle/
+*.class
+*.war
+*.jar
+*.ear
+
+# Configuration locale et environnement backend
+backend/.env.backend
+backend/*.properties.local
+backend/*.yml.local
+
+# Outils de build (Maven / Gradle Wrappers)
+# Supprimez ces lignes si vous souhaitez partager mvnw ou gradlew avec votre équipe
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+backend/gradlew
+backend/gradlew.bat
+
+# Logs backend
+backend/*.log
+backend/logs/
+
+
+# ==========================================
+# IDEs & SYSTÈME (Global à la racine et aux sous-dossiers)
+# ==========================================
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
