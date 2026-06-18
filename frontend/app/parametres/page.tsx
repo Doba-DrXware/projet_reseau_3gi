@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 /* Inspiré maquette "Paramètres" et "Profil" Figma */
 
@@ -12,6 +13,33 @@ export default function ParametresPage() {
   const [showPwdForm, setShowPwdForm] = useState(false);
   const [pwd, setPwd] = useState({ current: "", newPwd: "", confirm: "" });
   const [saved, setSaved] = useState("");
+  const [firstName, setFirstName] = useState("Ibrahim");
+  const [lastName, setLastName] = useState("Dupont");
+  const [identifierStored, setIdentifierStored] = useState("");
+  const [roleStored, setRoleStored] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    try {
+      const f = localStorage.getItem("firstName");
+      const l = localStorage.getItem("lastName");
+      const id = localStorage.getItem("identifier");
+      const r = localStorage.getItem("role");
+      if (f) setFirstName(f);
+      if (l) setLastName(l);
+      if (id) setIdentifierStored(id);
+      if (r) setRoleStored(r);
+    } catch (e) {
+      // ignore (server-side render protection not needed in client)
+    }
+  }, []);
+
+  const handleLogout = () => {
+    try {
+      ["token", "role", "userId", "firstName", "lastName", "identifier"].forEach(k => localStorage.removeItem(k));
+    } catch (e) {}
+    router.push("/auth/login");
+  };
 
   const Toggle = ({ value, onChange }: { value: boolean; onChange: () => void }) => (
     <button type="button" onClick={onChange} className={`w-12 h-6 rounded-full transition-all ${value ? "bg-[#0EA5E9]" : "bg-[#E2E8F0]"} relative`}>
@@ -28,8 +56,8 @@ export default function ParametresPage() {
           {/* Avatar */}
           <div className="w-14 h-14 rounded-2xl bg-white/20 border-2 border-white/30 flex items-center justify-center text-3xl">👤</div>
           <div>
-            <h1 className="text-white text-2xl font-black">Ibrahim Dupont</h1>
-            <p className="text-sky-100 text-sm">ibrahim@email.com • Patient</p>
+            <h1 className="text-white text-2xl font-black">{firstName} {lastName}</h1>
+            <p className="text-sky-100 text-sm">{identifierStored || "-"} • {roleStored ? (roleStored.charAt(0) + roleStored.slice(1).toLowerCase()) : "Patient"}</p>
           </div>
         </div>
       </div>
@@ -122,7 +150,7 @@ export default function ParametresPage() {
         {/* Déconnexion */}
         <div className="bg-white rounded-3xl p-5 shadow-md border border-[#F1F5F9]">
           <button
-            onClick={() => alert("Déconnexion...")}
+            onClick={handleLogout}
             className="w-full flex items-center gap-3 py-2 text-[#EF4444] hover:text-red-700 transition"
           >
             <div className="w-8 h-8 rounded-xl bg-[#FEE2E2] flex items-center justify-center flex-shrink-0">

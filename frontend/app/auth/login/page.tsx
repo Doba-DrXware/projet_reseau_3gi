@@ -52,6 +52,11 @@ export default function LoginPage() {
       localStorage.setItem("token", resultat.token);
       localStorage.setItem("role", resultat.role);
       localStorage.setItem("userId", String(resultat.userId));
+      // stocker prénom/nom et identifiant pour affichage du profil
+      if (resultat.firstName) localStorage.setItem("firstName", resultat.firstName);
+      if (resultat.lastName) localStorage.setItem("lastName", resultat.lastName);
+      // conserver l'identifiant utilisé pour la connexion (email ou téléphone)
+      localStorage.setItem("identifier", identifier.trim());
 
       if (resultat.role === "PATIENT") router.push("/patient");
       else if (resultat.role === "PHARMACIEN") router.push("/pharmacien");
