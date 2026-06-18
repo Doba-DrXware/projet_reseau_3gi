@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────
+   PALETTE PROXYMÉDOC
+   Inspirée des maquettes Figma :
+   - Bleu ciel principal  #38BDF8 / #0EA5E9
+   - Vert validation      #22C55E / #16A34A
+   - Blanc cassé fond     #F8FAFC
+   - Noir texte           #0F172A
+   - Gris doux            #94A3B8
+────────────────────────────────────────────── */
+
+:root {
+  --sky:        #38BDF8;
+  --sky-dark:   #0EA5E9;
+  --sky-deeper: #0284C7;
+  --sky-light:  #E0F2FE;
+  --green:      #22C55E;
+  --green-dark: #16A34A;
+  --green-light:#DCFCE7;
+  --red:        #EF4444;
+  --red-light:  #FEE2E2;
+  --amber:      #F59E0B;
+  --amber-light:#FEF3C7;
+  --white:      #FFFFFF;
+  --offwhite:   #F8FAFC;
+  --card:       #FFFFFF;
+  --border:     #E2E8F0;
+  --text:       #0F172A;
+  --muted:      #64748B;
+  --light:      #94A3B8;
+}
+
+@theme inline {
+  --color-sky:        var(--sky);
+  --color-sky-dark:   var(--sky-dark);
+  --color-green:      var(--green);
+  --color-green-dark: var(--green-dark);
+  --color-red:        var(--red);
+  --color-text:       var(--text);
+  --color-muted:      var(--muted);
+  --color-offwhite:   var(--offwhite);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--offwhite);
+  color: var(--text);
+  font-family: 'Inter', system-ui, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar fin */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--sky); border-radius: 4px; }
