@@ -1,5 +1,3 @@
-import { useRouter } from "next/navigation";
-
 const notifications = [
   {
     id: "1",

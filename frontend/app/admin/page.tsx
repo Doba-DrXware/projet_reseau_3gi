@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import RoleGuard from "@/components/RoleGuard";
 import { MOCK_ADMIN_PHARMACIES } from "@/lib/mock-data";
 
 /* Inspiré maquettes "Espace administrateur", "Ajouter pharmacie", "Modifier pharmacie", "Confirmer suppression" Figma */
@@ -23,7 +24,7 @@ export default function AdminPage() {
     try {
       ["token", "role", "userId", "firstName", "lastName", "identifier"].forEach(k => localStorage.removeItem(k));
     } catch (e) {}
-    router.push("/auth/login");
+    router.replace("/auth/login");
   };
 
   const active = pharmacies.filter((p) => p.active).length;
@@ -36,8 +37,9 @@ export default function AdminPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC]">
-      {/* Header sombre (fidèle maquette "Espace administrateur") */}
+    <RoleGuard allowedRole="ADMIN">
+      <main className="min-h-screen bg-[#F8FAFC]">
+        {/* Header sombre (fidèle maquette "Espace administrateur") */}
       <div className="bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] px-6 pt-14 pb-10 relative overflow-hidden">
         <div className="absolute top-[-40px] right-[-40px] w-56 h-56 rounded-full bg-white/5" />
         <div className="absolute bottom-0 left-[-20px] w-32 h-32 rounded-full bg-[#0EA5E9]/10" />
@@ -209,5 +211,6 @@ export default function AdminPage() {
         </div>
       )}
     </main>
+    </RoleGuard>
   );
 }

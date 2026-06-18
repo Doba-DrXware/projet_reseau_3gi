@@ -38,7 +38,7 @@ export default function ParametresPage() {
     try {
       ["token", "role", "userId", "firstName", "lastName", "identifier"].forEach(k => localStorage.removeItem(k));
     } catch (e) {}
-    router.push("/auth/login");
+    router.replace("/auth/login");
   };
 
   const Toggle = ({ value, onChange }: { value: boolean; onChange: () => void }) => (

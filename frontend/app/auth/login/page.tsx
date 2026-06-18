@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -27,6 +27,17 @@ export default function LoginPage() {
   const [error, setError] = useState("");
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    if (token && role) {
+      if (role === "PATIENT") router.replace("/patient");
+      else if (role === "PHARMACIEN") router.replace("/pharmacien");
+      else if (role === "ADMIN") router.replace("/admin");
+      else router.replace("/");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,10 +69,10 @@ export default function LoginPage() {
       // conserver l'identifiant utilisé pour la connexion (email ou téléphone)
       localStorage.setItem("identifier", identifier.trim());
 
-      if (resultat.role === "PATIENT") router.push("/patient");
-      else if (resultat.role === "PHARMACIEN") router.push("/pharmacien");
-      else if (resultat.role === "ADMIN") router.push("/admin");
-      else router.push("/");
+      if (resultat.role === "PATIENT") router.replace("/patient");
+      else if (resultat.role === "PHARMACIEN") router.replace("/pharmacien");
+      else if (resultat.role === "ADMIN") router.replace("/admin");
+      else router.replace("/");
     } catch (error) {
       console.error("Erreur lors de la connexion:", error);
       setError("Impossible de contacter le serveur. Vérifiez que le backend est démarré.");
